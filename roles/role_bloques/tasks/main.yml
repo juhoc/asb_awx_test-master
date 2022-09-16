@@ -3,7 +3,7 @@
    - name: Validar usuario patrol
      stat:
         path: /patrol
-     register: directorio_pa
+     register: directorio_pa     
 
    - name: Informacion Usuario patrol
      getent:
@@ -17,4 +17,7 @@
        key: grppatro
      register: grupo_pa
 
-#     failed_when: directorio_pa.uid != "1301" and (directorio_pa.gid != "1301" and directorio_pa.mode != "0755")
+   - name: Resultado de la validacion de pre-requisitos de PatrolAgent en el remote Host.
+     debug:
+       msg: "{{ directorio_pa.uid }},{{ directorio_pa.gid }}"
+     when: directorio_pa.uid == 1301 and ( directorio_pa.gid == 1301)
