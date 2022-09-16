@@ -4,4 +4,17 @@
      stat:
         path: /patrol
      register: directorio_pa
+
+   - name: Informacion Usuario patrol
+     getent:
+       database: passwd
+       key: patrol
+     register: usuario_pa
+
+   - name: Informacion grupo patrol
+     getent:
+       database: group
+       key: grppatro
+     register: grupo_pa
+
 #     failed_when: directorio_pa.uid != "1301" and (directorio_pa.gid != "1301" and directorio_pa.mode != "0755")
