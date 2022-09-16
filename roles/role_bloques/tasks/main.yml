@@ -21,7 +21,7 @@
      debug:
        msg: "{{ ansible_system }},{{ ansible_nodename }},OK,Cumple con todos los pre-requisidos"
      when: >
-          (directorio_pa.stat.uid == 1301) and
+          (directorio_pa.stat.uid == 1301) or
           (directorio_pa.stat.gid == 1301 and directorio_pa.stat.mode == 0755)
 
 #   - name: Resultado de la validacion de pre-requisitos de PatrolAgent en el remote Host.
