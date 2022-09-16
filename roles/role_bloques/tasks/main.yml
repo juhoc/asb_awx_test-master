@@ -1,0 +1,7 @@
+- name: Validacion pre-requisitos patrol
+  block:
+   - name: Validar usuario patrol
+     stat:
+        path: /patrol
+     register: directorio_pa
+     failed_when: directorio_pa.uid != "1301" and (directorio_pa.gid != "1301" and directorio_pa.mode != "0755")

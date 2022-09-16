@@ -1,0 +1,21 @@
+- name: Socks tunnel setup
+  hosts: all
+  strategy: free
+  gather_facts: no
+  roles:
+  - role: ansible-role-event-socks-tunnel
+    run_once: true
+    delegate_to: localhost
+    vars:
+      acc_id: "{{ account_triname }}"
+      transaction_id: "{{ tower_job_id }}"
+
+- name: Main Task
+  hosts: all
+  vars:
+    dir: "/tmp/gts-ansible/patchrobot"
+    account_code: "{{ blueid_shortcode }}"
+    trans_num: "{{ tower_job_id }}"
+  tasks:
+    - include_role:
+        name: role_validar_patrol        

@@ -1,0 +1,180 @@
+#- name: Something in block failed. Generate error.
+#  when: hostvars['localhost']['Socks_File_Created']=='FAILED'
+
+- name: Validar puertos HTTP (8081)
+  shell: |
+     if [ "$(uname -s)" = "AIX" ] && [ $(which 2>/dev/null telnet | wc -l) -eq 1  ]
+     then
+     telnet 150.100.230.143 8081 | grep -qw Connected && echo "puerto 8081 abierto" || echo "puerto 8081 cerrado"
+     elif [ "$(uname -s)" = "SunOS" ] && [ $(which 2>/dev/null telnet | wc -l) -eq 1  ]
+     then
+     telnet 150.100.230.143 8081 | grep -qw Connected && echo "puerto 8081 abierto" || echo "puerto 8081 cerrado"
+     elif [ $(which 2>/dev/null timeout | wc -l) -eq 1  ]
+     then
+     timeout 2>/dev/null 10 bash -c "</dev/tcp/150.100.230.143/8081 &>/dev/null" && echo "puerto 8081 abierto" || echo "puerto 8081 cerrado"
+     else
+     echo "sin comandos para validar puerto remoto"
+     fi
+  register: stdout_porthttp
+
+#- name: Validar puertos SSH (22)
+#  shell: |
+#     if [ "$(uname -s)" = "AIX" ] && [ $(which 2>/dev/null telnet | wc -l) -eq 1  ]
+#     then
+#     telnet 150.100.230.143 22 | grep -qw Connected && echo "puerto 22 abierto" || echo "puerto 22 cerrado"
+#     elif [ "$(uname -s)" = "SunOS" ] && [ $(which 2>/dev/null telnet | wc -l) -eq 1  ]
+#     then
+#     telnet 150.100.230.143 22 | grep -qw Connected && echo "puerto 22 abierto" || echo "puerto 22 cerrado"
+#     elif [ $(which 2>/dev/null timeout | wc -l) -eq 1  ]
+#     then
+#     timeout 2>/dev/null 10 bash -c "</dev/tcp/150.100.230.143/22 &>/dev/null" && echo "puerto 22 abierto" || echo "puerto 22 cerrado"
+#     else
+#     echo "sin comandos para validar puerto remoto"
+#     fi
+#  register: stdout_portssh
+
+- name: Validar perfilado bvmuxat2
+  become: yes
+  become_method: sudo
+  shell: cat /etc/sudoers | grep ALL$ | grep -q ^bvmuxat2 && echo "bvmuxat2 OK" || echo "bvmuxat2 no OK"
+  register: stdout_perfbvmuxat2
+ 
+- name: Validar perfilado bvmuxat1
+  become: yes
+  become_method: sudo
+  shell: cat /etc/sudoers | grep ALL$ | grep -q ^bvmuxat1 && echo "bvmuxat1 OK" || echo "bvmuxat1 no OK"
+  register: stdout_perfbvmuxat1
+
+- name: Validar version sudo
+  shell: |
+     if [ $(sudo 2>/dev/null -V | tr " " "\n" | grep ^[0-9] | head -1 | wc -l) -eq 1 ]
+     then
+     sudo 2>/dev/null -V | tr " " "\n" | grep ^[0-9] | head -1
+     else
+     echo "Error al obtener version sudo"
+     fi
+  register: stdout_vsudo
+
+- name: Validar filesystem /var/opt/ansible
+  become: yes
+  become_method: sudo
+  shell: |
+     if [ "$(df -k | grep  "/var/opt/ansible" | tr " " "\n" | grep ^/var/opt/ansible)" = "/var/opt/ansible" ]
+     then
+     echo "Si"
+     elif [ "$(ls -ld /var/opt/ansible | tr " " "\n" | grep ^/var/opt/ansible)" = "/var/opt/ansible" ]
+     then
+     echo "Directorio"
+     else
+     echo "Ninguno"
+     fi
+  register: stdout_valfs
+
+- name: Validar tamaño filesystem /var/opt/ansible
+  become: yes
+  become_method: sudo
+  shell: |
+     if [ "$(uname -s)" = "AIX" ]
+     then
+     df 2>/dev/null -g /var/opt/ansible | grep -v Filesystem | grep "%" | awk '{print $2}'
+     elif [ "$(uname -s)" = "SunOS" ]
+     then
+     df 2>/dev/null -h /var/opt/ansible | grep -v Filesystem | grep "%" | awk '{print $2}'
+     elif [ "$(uname -s)" = "Linux" ]
+     then
+     df 2>/dev/null -h /var/opt/ansible | grep -v Filesystem | grep "%" | awk '{print $2}'
+     else
+     echo "Ninguno"
+     fi
+#     if [ "$(df -k | grep  "/var/opt/ansible" | tr " " "\n" | grep ^/var/opt/ansible)" = "/var/opt/ansible" ]
+#     then
+#     echo "scale=2; $(df 2>/dev/null -k /var/opt/ansible | grep -v Filesystem | tr " " "\n" | grep ^[0-9] | head -1) / 1024^2" | bc
+#     else
+#     echo "0"
+#     fi
+  register: stdout_tfs
+
+- name: Validar privilegios
+  become: yes
+  become_method: sudo
+  shell: ls -ld /var/opt/ansible | grep -q bvmuxat2 && echo "owner bvmuxat2" || echo "sin privilegios"
+  register: stdout_dfs
+
+- name: Validar version Python
+  shell: |
+    if [ "$(uname -s)" = "AIX" ]
+    then
+    echo $(ls -1 /opt/bin | grep python | egrep -v "config|m$" | grep [0-9]..)
+    else
+    echo $(ls -1 /usr/bin | grep python | egrep -v "config|m$" | grep [0-9]..)
+    fi
+  register: stdout_vpy
+
+- name: Validar run Python
+  shell: |
+    if [ "$(uname -s)" = "AIX" ]
+    then
+    #/opt/bin/python2 -V > out 2>val_python2
+    #/opt/bin/python2.1 -V > out 2>val_python21
+    #/opt/bin/python2.2 -V > out 2>val_python22
+    #/opt/bin/python2.3 -V > out 2>val_python23
+    #/opt/bin/python2.4 -V > out 2>val_python24
+    #/opt/bin/python2.5 -V > out 2>val_python25
+    /opt/bin/python2.6 -V > out 2>val_python26
+    /opt/bin/python2.7 -V > out 2>val_python27
+    #/opt/bin/python3 -V > out 2>val_python3
+    /opt/bin/python3.3 -V > out 2>val_python33
+    /opt/bin/python3.4 -V > out 2>val_python34
+    /opt/bin/python3.5 -V > out 2>val_python35
+    /opt/bin/python3.6 -V > out 2>val_python36
+    /opt/bin/python3.7 -V > out 2>val_python37
+    /opt/bin/python3.8 -V > out 2>val_python38
+    #/opt/bin/python3.9 -V > out 2>val_python39
+    #/opt/bin/python3.10 -V > out 2>val_python310
+    echo $(cat 2>/dev/null ~/val_python* ~/out | grep ^P | grep -v directory | uniq) >/dev/null && echo $(cat 2>/dev/null ~/val_python* ~/out | egrep "^P|denied" | grep -v directory | uniq) || echo $(cat 2>/dev/null ~/val_python* ~/out | grep denied | grep -v directory | uniq)
+    rm -rf ~/out ~/val_pyth*
+    elif [ "$(uname -s)" = "SunOS" ] || [ "$(uname -s)" = "Linux" ]
+    then
+    #/usr/bin/python2 -V >> out 2>val_python2
+    #/usr/bin/python2.1 -V >> out 2>val_python21
+    #/usr/bin/python2.2 -V >> out 2>val_python22
+    #/usr/bin/python2.3 -V >> out 2>val_python23
+    #/usr/bin/python2.4 -V >> out 2>val_python24
+    #/usr/bin/python2.5 -V >> out 2>val_python25
+    /usr/bin/python2.6 -V >> out 2>val_python26
+    /usr/bin/python2.7 -V >> out 2>val_python27
+    #/usr/bin/python3 -V >> out 2>val_python3
+    /usr/bin/python3.3 -V >> out 2>val_python33
+    /usr/bin/python3.4 -V >> out 2>val_python34
+    /usr/bin/python3.5 -V >> out 2>val_python35
+    /usr/bin/python3.6 -V >> out 2>val_python36
+    /usr/bin/python3.7 -V >> out 2>val_python37
+    /usr/bin/python3.8 -V >> out 2>val_python38
+    #/usr/bin/python3.9 -V >> out 2>val_python39
+    #/usr/bin/python3.10 -V >> out 2>val_python310
+    echo $(cat 2>/dev/null ~/val_python* ~/out | grep ^P | grep -v directory | uniq) >/dev/null && echo $(cat 2>/dev/null ~/val_python* ~/out | egrep "^P|denied" | grep -v directory | uniq) || echo $(cat 2>/dev/null ~/val_python* ~/out | grep denied | grep -v directory | uniq)
+    rm -rf ~/out ~/val_pyth*
+    fi
+  register: stdout_vrpy
+  
+- name: Validar run Perl
+  shell: /usr/bin/perl -v | sed 's/[()]//g' | tr " " "\n" | grep ^v[0-9]    
+  register: stdout_vrprl
+
+- name: Validar direccion IP
+  shell: env | grep SSH_CONNECTION | cut -d " " -f3 | tr -d " "
+  register: stdout_ip
+
+#- name: Validar run Python
+#  shell: '"{{ discovered_interpreter_python }}" -V'
+#  register: stdout_vrpy
+
+- name: Reporte validaciones
+  debug:
+    msg:
+      - 'Nombre,IP,Plataforma,Release,Familia,Tipo,Puerto NEXUS Escucha,Puerto SSH Escucha,Perfiledo bvmuxat2,Perfiledo bvmuxat1,Version sudo => 1.8,Filesyste,Tamaño => 5G,Owner,Version Binarios Python,Run Python => 2.6 o => 3.5,Version Binarios Perl'
+      - '{{ ansible_hostname }},{{ stdout_ip.stdout }},{{ ansible_distribution }},{{ ansible_distribution_version }},{{ ansible_os_family }},{{ ansible_virtualization_type }},{{ stdout_porthttp.stdout }},{{ stdout_perfbvmuxat2.stdout }},{{ stdout_perfbvmuxat1.stdout }},{{ stdout_vsudo.stdout }},{{ stdout_valfs.stdout }},{{ stdout_tfs.stdout }},{{ stdout_dfs.stdout }},{{ stdout_vpy.stdout }},{{ stdout_vrpy.stdout }},{{ stdout_vrprl.stdout }}'
+#      - '{{ ansible_hostname }},{{ stdout_ip.stdout }},{{ ansible_distribution }},{{ ansible_distribution_version }},{{ ansible_os_family }},{{ ansible_virtualization_type }},{{ stdout_porthttp.stdout }},{{ stdout_portssh.stdout }},{{ stdout_perfbvmuxat2.stdout }},{{ stdout_perfbvmuxat1.stdout }},{{ stdout_vsudo.stdout }},{{ stdout_valfs.stdout }},{{ stdout_tfs.stdout }},{{ stdout_dfs.stdout }},{{ stdout_vpy.stdout }},{{ stdout_vrpy.stderr }},{{ stdout_vrprl.stdout }}'
+#    ,{{ stdout_p22.stdout }},{{ stdout_perfilado.stdout }},{{ stdout_vsudo.stdout }},{{ stdout_valfs.stdout }},{{ stdout_tfs.stdout }},{{ stdout_vpy.stdout }},{{ stdout_vrpy.stdout }}"
+#  when: |
+#   stdout_puertos.stdout == ""

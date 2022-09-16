@@ -1,0 +1,20 @@
+- name: Socks tunnel setup
+  hosts: all
+  strategy: free
+  gather_facts: true
+  roles:
+  - role: ansible-role-event-socks-tunnel
+    run_once: true
+    delegate_to: localhost
+    vars:
+      acc_id: "{{ account_triname }}"
+      transaction_id: "{{ tower_job_id }}"
+      
+- name: Cambio de password usuario windows local
+  hosts: all
+  gather_facts: False
+  vars:
+     - user_password: password
+  tasks:
+    - include_role:
+        name: role_cambia_password

@@ -1,0 +1,7 @@
+- name: Tarea principal de multipruebas
+  hosts: all
+  vars:
+     - pruebas: "Seleccione una de varias pruebas"
+  tasks:         
+    - include_role:
+        name: role_{{ pruebas }}

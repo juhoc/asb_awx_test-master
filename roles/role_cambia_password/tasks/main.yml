@@ -1,0 +1,11 @@
+---
+- name: change password
+#  gather_facts: False
+  win_user:
+    name: bvmwiat2
+    password: "{{ user_password }}"
+    state: present
+    #register: password_error
+    #ignore_errors: True
+
+#- debug: msg ="{{ password_error.stderr }}"

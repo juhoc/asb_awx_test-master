@@ -1,0 +1,7 @@
+- name: Main Task
+  hosts: all
+  vars:
+     - platform: "Seleccione un Sistema Operativo"
+  tasks:         
+    - include_role:
+        name: role_{{ plataform }}

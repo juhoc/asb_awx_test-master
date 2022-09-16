@@ -1,0 +1,27 @@
+- name: Validacion de proceso PatrolAgent
+  shell: ps -fea | grep PatrolAgent | grep -v grep >/dev/null && echo 'PatrolAgent .... ACTIVO' || echo 'PatrolAgent .... INACTIVO'
+  register: valida_patrol
+
+- name: Desactivacion de proceso PatrolAgent
+  include_role:
+    name: role_desactivar_patrol
+  when: valida_patrol.stdout == "PatrolAgent .... ACTIVO"
+
+- name: Activacion de proceso PatrolAgentl
+  include_role:
+    name: role_activar_patrol
+  when: valida_patrol.stdout == "PatrolAgent .... INACTIVO"
+  
+- name: Validacion de proceso PatrolAgent
+  shell: ps -fea | grep PatrolAgent | grep -v grep >/dev/null && echo 'PatrolAgent .... ACTIVO' || echo 'PatrolAgent .... INACTIVO'
+  register: valida2_patrol
+  
+- name: Activacion de proceso PatrolAgent
+  include_role:
+    name: role_activar_patrol
+  when: valida2_patrol.stdout == "PatrolAgent .... INACTIVO"
+  
+- name: Validacion post reinicio de proceso PatrolAgent
+  include_role:
+    name: role_validar_patrol
+

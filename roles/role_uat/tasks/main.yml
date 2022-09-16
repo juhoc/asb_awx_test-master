@@ -1,0 +1,25 @@
+- name: Crear directorio de UAT
+  file:
+    path: /tmp/uatgetinfo
+    state: directory
+    mode: 0700
+    
+- name: Envio de scripts UAT
+  copy:
+    src: files/iam_extract_global.sh
+    dest: /tmp/uatgetinfo
+    mode: 0500
+    force: yes
+
+- name: Ejecucion de script UAT
+  gather_facts: True
+  become: yes
+  become_method: su
+  shell: /tmp/uatgetinfo/iam_extract_global.sh
+#     #ls -l /tmp/uatgetinfo/
+# register: statusuat
+
+#   - name: Status Proceso PatrolAgent
+#     debug:
+#      msg:
+#         - "{{ statusuat.stdout_lines }}"

@@ -1,0 +1,4 @@
+- name: Ejecucion de script UAT
+  become: yes
+  become_method: sudo
+  shell: /tmp/uatgetinfo/iam_extract_global.sh

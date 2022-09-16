@@ -1,0 +1,29 @@
+- name: Ansible Playbook para validar Python
+  hosts: all
+  become: yes
+  become_user: ccrbao
+  become_method: su
+  become_exe: sudo su -
+  tasks:
+    - name: Crear llaves
+      shell: |
+         if [ $(ls 2>/dev/null ~/.ssh/authorized_key | wc -l) -eq 1 ] && [ $(grep 2>/dev/null "uDjsYZwPwqN9957Jaz+eqqZl patrol@patrolmtyp" ~/.ssh/authorized_key | wc -l) -eq 1 ]
+         then
+         echo "Nada que hacer"
+         elif [ $(ls 2>/dev/null ~/.ssh/authorized_key | wc -l) -eq 1 ] && [ $(grep 2>/dev/null "uDjsYZwPwqN9957Jaz+eqqZl patrol@patrolmtyp" ~/.ssh/authorized_key | wc -l) -eq 0 ]
+         then
+         cp ~/.ssh/authorized_key ~/retorno_authorized_key_$(date +%d%m%y)
+         echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEINkDctEbD8TRpwI5G4mfK2aZRoCQ6llQ3n+1DQXl4BldnsVu37miWnIiVIvw7TvQyKYrvjRZCK2DXV1LD+T8ALHG238zM7RlxtK2IZwtt6MZP1YLbedOKY0OwRDqrLpZPo0g2wJgCH4EikHncZ16WroCPjutGA9UyB5o71C2j4Za1IVSM3bMzEFEs3w+vziiZp0Wa2wBZazfxyRtA/QGb8PfC+wTOvwdRo7hySkOEMcbqrMqf6nbg1gaWg3qH8RfUZRlP3JSELleotvFfX0Tsl5XjPmlYGWM5mc8w+vmYKDRxpXk6F79oCecpL6vSd/R4AgGnySyOgL5NyImpMjD patrol@patrolmtyp" >> /patrol/.ssh/authorized_key
+         chmod 600 /patrol/.ssh/authorized_key
+         echo "Cambio en el archivo .ssh" 
+         else
+         mkdir ~/.ssh
+         chmod 700 ~/.ssh
+         touch ~/.ssh/authorized_key
+         chmod 600 ~/.ssh/authorized_key
+         echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEINkDctEbD8TRpwI5G4mfK2aZRoCQ6llQ3n+1DQXl4BldnsVu37miWnIiVIvw7TvQyKYrvjRZCK2DXV1LD+T8ALHG238zM7RlxtK2IZwtt6MZP1YLbedOKY0OwRDqrLpZPo0g2wJgCH4EikHncZ16WroCPjutGA9UyB5o71C2j4Za1IVSM3bMzEFEs3w+vziiZp0Wa2wBZazfxyRtA/QGb8PfC+wTOvwdRo7hySkOEMcbqrMqf6nbg1gaWg3qH8RfUZRlP3JSELleotvFfX0Tsl5XjPmlYGWM5mc8w+vmYKDRxpXk6F79oCecpL6vSd/R4AgGnySyOgL5NyImpMjD patrol@patrolmtyp" >> /patrol/.ssh/authorized_key
+         echo "Cambio en el archivo .ssh"
+         chmod 600 ~/.ssh/authorized_key
+         fi
+      register: privkeyssh_pa
+      changed_when: '"Cambio en el archivo .ssh"" in privkeyssh_pa.stdout'

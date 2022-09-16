@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Aldrin Valenzuela aldrinv@mx1.ibm.com
+  role_name: role_patch_precheck
+  description: Check Configuration previous to Patch Installation
+  company: IBM
+  license: IBM Intellectual Property
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Linux SUSE RedHat
+
+  galaxy_tags:
+    - Linux
+    - SUSE
+    - RedHat

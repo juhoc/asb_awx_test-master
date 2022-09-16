@@ -1,0 +1,11 @@
+- name: Activacion de proceso PatrolAgent
+  become: yes
+  become_user: patrol
+  become_method: su
+  become_exe: sudo su -
+  shell: /patrol/Patrol3/scripts.d/S50PatrolAgent.sh start
+  register: status_alta
+
+- name: Imprimir status de proceso PatrolAgent
+  debug:
+    msg: "{{ status_alta.stdout_lines }}"

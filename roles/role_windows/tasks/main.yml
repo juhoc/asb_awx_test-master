@@ -1,0 +1,5 @@
+- name: Deploy wasconfig
+  win_copy:
+    src: files/was_config.txt
+    dest: V:\Appsys\ansible\GTS\__GCM\Websphere-ITSSCSD_520\vault\
+    

@@ -1,0 +1,7 @@
+- name: PlayBook Maestro de validacion de prepare de SHC
+  hosts: all
+  vars:
+     - os_platforms: "Seleccione una plataforma"
+  tasks:
+    - include_role:
+        name: role_val_prepare_shc_{{ os_platforms }}

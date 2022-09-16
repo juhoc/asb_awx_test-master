@@ -1,0 +1,13 @@
+- name: Validacion de proceso PatrolAgent
+  shell: ps -fea | grep PatrolAgent | grep -v grep >/dev/null && echo 'PatrolAgent .... ACTIVO' || echo 'PatrolAgent .... INACTIVO'
+  register: status_validacion
+
+- name: Imprimir status de proceso PatrolAgent
+  debug:
+    msg: "{{ status_validacion.stdout }}"
+  when: status_validacion.stdout == "PatrolAgent .... ACTIVO"
+
+- name: Imprimir status de proceso PatrolAgent
+  debug:
+    msg: "{{ status_validacion.stdout }}"
+  when: status_validacion.stdout == "PatrolAgent .... INACTIVO"

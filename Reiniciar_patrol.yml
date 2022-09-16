@@ -1,0 +1,5 @@
+- name: Main Task
+  hosts: all
+  tasks:
+    - include_role:
+        name: role_reiniciar_patrol        

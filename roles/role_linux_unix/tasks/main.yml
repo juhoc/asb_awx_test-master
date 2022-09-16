@@ -1,0 +1,9 @@
+- name: Deploy wasconfig
+  become: yes
+#  become_user: bvmuxat2
+  become_method: sudo
+  ansible.builtin.copy:
+    src: files/was_config.txt
+    dest: /var/opt/ansible/GTS/__GCM/Websphere-ITSSCSD_520/vault/
+    mode: 0700
+    force: yes

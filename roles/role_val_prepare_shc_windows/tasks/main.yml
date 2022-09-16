@@ -1,0 +1,25 @@
+- name: Validar Unidad V
+  win_shell: Get-Volume V | Format-list DriveLetter
+  register: stdout_volv
+
+- name: Validar Unidad V Tamaño
+  win_shell: Get-Volume V | Format-list Size
+  register: stdout_volvt
+
+- name: Validar PowerShell Installado
+  win_command: PowerShell "Get-WindowsFeature -Name PowerShell" | findstr PowerShell
+  register: stdout_psw
+  
+- name: Validar Net-Framework Installado
+  win_command: PowerShell "Get-WindowsFeature -Name Net-Framework-Core" | findstr NET
+  register: stdout_dnet
+
+- name: Reporte validaciones
+  debug:
+    msg:
+      - 'Nombre,IP Address,Plataforma,Familia,Tipo,Unidad V'
+      - '{{ ansible_hostname }},{{ ansible_ip_addresses[0] }},{{ ansible_distribution }},{{ ansible_os_family }},{{ ansible_virtualization_type }},{{ stdout_volv.stdout }},{{ stdout_volvt.stdout }},{{ stdout_psw.stdout }},{{ stdout_dnet.stdout }}"'
+      
+#Puerto NEXUS Escucha,Puerto SSH Escucha,Perfiledo bvmuxat2,Perfiledo bvmuxat1,Version sudo => 1.8,Filesyste,Tamaño => 5G,Owner,Version Binarios Python,Run Python => 2.6 o => 3.5'
+#,{{ stdout_porthttp.stdout }},{{ stdout_portssh.stdout }},{{ stdout_perfbvmuxat2.stdout }},{{ stdout_perfbvmuxat1.stdout }},{{ stdout_vsudo.stdout }},{{ stdout_valfs.stdout }},{{ stdout_tfs.stdout }},{{ stdout_dfs.stdout }},{{ stdout_vpy.stdout }},{{ stdout_vrpy.stderr }}'
+# {{ ansible_ip_addresses }}

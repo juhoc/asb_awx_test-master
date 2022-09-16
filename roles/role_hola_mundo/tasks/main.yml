@@ -1,0 +1,19 @@
+- name: Ejecutar un Hola Mundo
+  shell: "echo 'Hola Mundo'"
+  register: msjtx
+
+#- name: Envio de archivo hola_mundo.txt al FS var_opt_ansible
+#  copy:
+#    src: files/hola_mundo.txt
+#    dest: /var/opt/ansible
+#    mode: 0700
+#    force: yes
+
+- name: Status de la ejecucion del Hola Mundo
+  debug:
+    msg:
+      - "Este mensaje de {{ msjtx.stdout }}"
+      - "Se ejecuto en el equipo: {{ ansible_hostname }} - {{ ansible_default_ipv4.address }}"
+      - "De la plataforma: {{ ansible_distribution }}"
+      - "Donde esta usando la version de Python: {{ ansible_python_version }}"
+  when: msjtx.stdout == "Hola Mundo"

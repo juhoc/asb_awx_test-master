@@ -1,0 +1,150 @@
+authorization-parameters
+#            default
+#                            ad-gsk7kit-java-pth= "/usr/java14"
+#                            ad-password-key-file = WebAS
+#                            ad-password-trs-file = WebAS
+#                            ad-installpath-allfiles-check = no
+            inst1
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 8879
+                            INSTALL_PATH = "D:\WebSphere60\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst2
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 8879
+                            INSTALL_PATH = "D:\WebSphere61\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst3
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 38879
+                            INSTALL_PATH = "D:\WebSphere80\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst4
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 48879
+                            INSTALL_PATH = "D:\WebSphere85\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst5
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 58879
+                            INSTALL_PATH = "D:\WebSphere90\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+#-----------------------------------------------------------------------------------#
+            inst1
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 8879
+                            INSTALL_PATH = "C:\WebSphere60\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst2
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 8879
+                            INSTALL_PATH = "C:\WebSphere61\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst3
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 38879
+                            INSTALL_PATH = "C:\WebSphere80\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst4
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 48879
+                            INSTALL_PATH = "C:\WebSphere85\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst5
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 58879
+                            INSTALL_PATH = "C:\WebSphere90\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+
+#-----------------------------------------------------------------------------------#
+            inst1
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 8879
+                            INSTALL_PATH = "E:\WebSphere60\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst2
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 8879
+                            INSTALL_PATH = "E:\WebSphere61\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst3
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 38879
+                            INSTALL_PATH = "E:\WebSphere80\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst4
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 48879
+                            INSTALL_PATH = "E:\WebSphere85\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst5
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 58879
+                            INSTALL_PATH = "E:\WebSphere90\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+#-----------------------------------------------------------------------------------#
+            inst1
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 8879
+                            INSTALL_PATH = "F:\WebSphere60\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst2
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 8879
+                            INSTALL_PATH = "F:\WebSphere61\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst3
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 38879
+                            INSTALL_PATH = "F:\WebSphere80\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst4
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 48879
+                            INSTALL_PATH = "F:\WebSphere85\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
+            inst5
+                            ad-server-id = patrol
+                            ad-password = J4a3pcL0
+                            ad-soap-port = 58879
+                            INSTALL_PATH = "F:\WebSphere90\AppServer\profiles\Dmgr01"
+                            ad-password-key-file = WebAS
+                            ad-password-trs-file = WebAS
