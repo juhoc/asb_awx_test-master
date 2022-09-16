@@ -20,4 +20,4 @@
    - name: Resultado de la validacion de pre-requisitos de PatrolAgent en el remote Host.
      debug:
        msg: "{{ directorio_pa.stat.uid }},{{ directorio_pa.stat.gid }}"
-#     when: directorio_pa.stat.uid == "1301" and directorio_pa.stat.gid == "1301"
+     when: directorio_pa.stat.uid == "1301"
