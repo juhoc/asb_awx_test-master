@@ -1,6 +1,6 @@
 - name: Validacion pre-requisitos patrol
   block:
-   - name: Informacion directprio patrol
+   - name: Informacion directorio patrol
      stat:
         path: /patrol
      register: directorio_pa     
