@@ -1,5 +1,6 @@
 - name: download test bds
   become: yes
+  become_method: sudo
   get_url:
     url: http://172.18.0.14:8081/repository/GCM/jre/8.0.6.26/linux_x86_64/jre_8.0.6.26_linux_x86_64.tar
     dest: /tmp
