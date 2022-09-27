@@ -1,7 +1,17 @@
-- name: download test bds
+- name: Crear directorio y descargar archivo
   become: yes
-  become_method: sudo
-  get_url:
-    url: http://172.18.0.14:8081/repository/GCM/jre/8.0.6.26/linux_x86_64/jre_8.0.6.26_linux_x86_64.tar
-    dest: /var/opt/ansible/GTS/
-    mode: 0700
+  become_method: sudo  
+  block:
+   - name: Crear directorio
+     file:
+       path: /var/opt/ansible/GTS
+       state: directory
+       owner: root
+       group: root
+       mode: 0755
+
+   - name: Crear directorio
+     get_url:
+       url: http://172.18.0.14:8081/repository/GCM/jre/8.0.6.26/linux_x86_64/jre_8.0.6.26_linux_x86_64.tar
+       dest: /var/opt/ansible/GTS/
+       mode: 0755
