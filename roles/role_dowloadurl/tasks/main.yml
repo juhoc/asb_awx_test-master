@@ -1,6 +1,6 @@
 - name: Crear directorio y descargar archivo
-  become: yes
-  become_method: sudo  
+#  become: yes
+#  become_method: sudo  
   block:
    - name: Crear directorio
      file:
