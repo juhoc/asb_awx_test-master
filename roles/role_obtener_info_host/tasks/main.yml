@@ -1,3 +1,5 @@
 - name: Obtener informacion Equipo
   debug:
-    var: ansible_facts['memfree_mb']
+    var: |
+      ansible_facts['memfree_mb']
+      ansible_facts['memtotal_mb']
