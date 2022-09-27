@@ -2,4 +2,4 @@
   hosts: all
   tasks:
     - include_role:
-        name: role_get_info_memry
+        name: role_get_info_memory
