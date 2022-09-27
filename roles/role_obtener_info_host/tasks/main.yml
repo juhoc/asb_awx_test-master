@@ -1,3 +1,3 @@
 - name: Obtener informacion Equipo
   debug:
-    var: ansible_facts
+    var: ansible_facts['system']
