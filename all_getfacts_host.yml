@@ -1,0 +1,3 @@
+- name: Obtener todos los echos
+  hosts: all
+  gather_facts: no
