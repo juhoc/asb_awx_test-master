@@ -1,7 +1,8 @@
 - name: Hardware info
   vars:
-  msg: |
+   msg: |
     RAM: {{ ansible_memtotal_mb }}
     SWAP: {{ ansible_memory_mb.swap.total }}
-  debug:
-  msg: "{{ msg.split('\n') }}"
+
+- debug:
+    msg: "{{ msg.split('\n') }}"
