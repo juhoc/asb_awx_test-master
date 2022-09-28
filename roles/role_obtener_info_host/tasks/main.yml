@@ -1,4 +1,4 @@
 - name: Obtener informacion Memoria
   debug:
     msg:
-      - "Memoria Libre: {{ ansible_facts['memtotal_mb']|int }} Gb"
+      - "Memoria Libre: {{ (ansible_facts['memtotal_mb'] / 1024)|int }} Gb"
