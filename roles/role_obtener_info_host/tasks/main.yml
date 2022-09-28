@@ -2,3 +2,9 @@
   debug:
     msg:
       - "Memoria Total: {{ (ansible_facts['memtotal_mb'] / 1024)|int }} Gb"
+      - "Nombre Equipo: {{ ansible_facts['nodename'] }}"
+      - "Distribucion: {{ ansible_facts['distribution'] }}"
+      - "Version: {{ ansible_facts['distribution_version'] }}"
+      - "Nombre Codigo: {{ ansible_facts['distribution_release'] }}"
+      - "Direccion IP: {{ ansible_facts['all_ipv4_addresses'][0] }}"
+      
