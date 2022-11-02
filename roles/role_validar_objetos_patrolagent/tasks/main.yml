@@ -1,7 +1,7 @@
 ---
 - name: Validar binario pconfig en el directorio /patrol3
   become: yes
-  become_method: sudo
+#  become_method: sudo
   find:
     paths: /patrol
     file_type: file
