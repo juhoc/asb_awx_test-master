@@ -6,5 +6,5 @@
     paths: /patrol
     file_type: file
     recurse: yes
-    patterns: "*pconfig*"
+    patterns: "pconfig$"
   register: siextpconfig
