@@ -4,6 +4,7 @@
   become_method: sudo
   find:
     paths: /patrol
-#    file_type: file
-    patterns: "pconfig"
+    file_type: file
+    recurse: yes
+    patterns: "*pconfig*"
   register: siextpconfig
