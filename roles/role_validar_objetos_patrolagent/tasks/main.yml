@@ -8,3 +8,8 @@
     recurse: yes
     patterns: "pconfig*"
   register: siextpconfig
+  
+- name: Resultadis
+  debug:
+    msg:
+     - "{{ siextpconfig.files.path }}"
