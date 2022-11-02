@@ -3,7 +3,7 @@
   become: yes
   become_method: sudo
   find:
-  	paths: /patrol
-  	file_type: file
-  	patterns: "pconfig"
+    paths: /patrol
+    file_type: file
+    patterns: "pconfig"
   register: siextpconfig
