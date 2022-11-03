@@ -82,3 +82,40 @@
        group: grppatro
        mode: 0754
      when: ansible_facts['os_family'] == "Solaris"
+     
+   - name: Extraer el Inslador PatrolAgent AIX en el remote Host "{{ ansible_facts['nodename'] }}"
+     become: yes
+     become_user: patrol
+     become_method: su
+     become_exe: sudo su -
+     unarchive:
+       src: /tmp/Base_{{ ansible_facts['os_family'] }}_Patrol_Without.tar.gz
+       dest: /tmp
+       mode: 0754
+       remote_src: yes
+     when: ansible_facts['os_family'] == "AIX"
+
+   - name: Extraer el Inslador PatrolAgent Linux en el remote Host "{{ ansible_facts['nodename'] }}"
+     become: yes
+     become_user: patrol
+     become_method: su
+     become_exe: sudo su -
+     unarchive:
+       src: /tmp/Base_{{ ansible_facts['system'] }}_Patrol_Without.tar.gz
+       dest: /tmp
+       mode: 0754
+       remote_src: yes
+     when: ansible_facts['system'] == "Linux"
+
+   - name: Extraer el Inslador PatrolAgent Solaris en el remote Host "{{ ansible_facts['nodename'] }}"
+     become: yes
+     become_user: patrol
+     become_method: su
+     become_exe: sudo su -
+     unarchive:
+       src: /tmp/Base_{{ ansible_facts['os_family'] }}_Patrol_Without.tar.gz
+       dest: /tmp
+       mode: 0754
+       remote_src: yes
+     when: ansible_facts['os_family'] == "Soladis"
+
