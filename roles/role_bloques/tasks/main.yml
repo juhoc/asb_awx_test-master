@@ -1,30 +1,54 @@
-- name: Validacion pre-requisitos patrol
+---
+- name: Bloque de descargar de las medias de Instalacion de PatrolAgent
   block:
-   - name: Informacion directorio patrol
+   - name: Descarga media PatrolAgent AIX en el remote Host "{{ ansible_facts['nodename'] }}"
+     become: yes
+     become_method: sudo
+     get_url:
+       dest: /tmp/Base_AIX_Patrol_Without.tar.gz
+       url: http://{{ websrvsimple }}:{{ websrvport }}/Base_Linux_Patrol_Without.tar.gz
+       owner: patrol
+       group: grppatro
+       mode: 0754
+       force_basic_auth: yes
+     when: ansible_facts['os_family'] == "AIX"
+   
+   - name: Descarga media PatrolAgent Linux en el remote Host "{{ ansible_facts['nodename'] }}"
+     become: yes
+     become_method: sudo
+     get_url:
+       dest: /tmp/Base_Linux_Patrol_Without.tar.gz
+       url: http://{{ websrvsimple }}:{{ websrvport }}/Base_Linux_Patrol_Without.tar.gz
+       owner: patrol
+       group: grppatro
+       mode: 0754
+       force_basic_auth: yes
+     when: ansible_facts['system'] == "Linux"
+    
+   - name: Descarga media PatrolAgent Solaris en el remote Host "{{ ansible_facts['nodename'] }}"
+     become: yes
+     become_method: sudo
+     get_url:   
+       dest: /tmp/Base_Solaris_Patrol_Without.tar.gz
+       url: http://{{ websrvsimple }}:{{ websrvport }}/Base_Solaris_Patrol_Without.tar.gz
+       owner: patrol
+       group: grppatro
+       mode: 0754
+       force_basic_auth: yes
+     when: ansible_facts['os_family'] == "Solaris"
+   
+   - name: Validar permisos en el directorio patrol en el remote host "{{ ansible_facts['nodename'] }}"
      stat:
-        path: /patrol
-     register: directorio_pa     
-
-   - name: Informacion usuario patrol
-     getent:
-       database: passwd
-       key: patrol
-     register: usuario_pa
-
-   - name: Informacion grupo patrol
-     getent:
-       database: group
-       key: grppatro
-     register: grupo_pa
-
-   - name: Resultado de la validacion de pre-requisitos de PatrolAgent en el remote Host.
-     debug:
-       msg: "{{ ansible_system }},{{ ansible_nodename }},OK,Cumple con todos los pre-requisidos"
-     when: >
-          (directorio_pa.stat.uid == 1301) or
-          (directorio_pa.stat.gid == 1301 and directorio_pa.stat.mode == 0755)
-
-#   - name: Resultado de la validacion de pre-requisitos de PatrolAgent en el remote Host.
-#     debug:
-#       msg: "{{ ansible_system }},{{ ansible_nodename }},No OK,No Cumple con todos los pre-requisidos"
-#     when: (directorio_pa.stat.uid != 1301 and directorio_pa.stat.gid != 1301 and directorio_pa.stat.mode != 0755)
+       path: /patrol/
+     register: siperejcdirpa
+   
+   - name: Correccion de permisos al directorio /patrol antes de instalar en el remote Host "{{ ansible_facts['nodename'] }}"
+     become: yes
+     become_method: sudo
+     file:
+       path: /patrol/
+       state: directory
+       owner: patrol
+       group: grppatro
+       mode: 0755
+     when: siperejcdirpa.stat.mode != "0755"
