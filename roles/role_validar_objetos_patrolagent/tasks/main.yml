@@ -8,7 +8,18 @@
     recurse: yes
     patterns: "pconfig*"
   register: siextpconfig
-  
+
+- name: Alta despues de la reconfiguracion el servicios de PatrolAgent en el remote Host "{{ ansible_facts['nodename'] }}"
+  become: yes
+  become_user: patrol
+  become_method: su
+  become_exe: sudo su -
+  shell: |
+    cd /pareol/Patrol3
+    . ./patrolrc.sh
+    pconfig +get
+  when: siextpconfig.files[0].path in ["pconfig"]
+
 - name: Resultadis
   debug:
     msg:
