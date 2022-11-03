@@ -52,3 +52,33 @@
        group: grppatro
        mode: 0755
      when: siperejcdirpa.stat.mode != "0755"
+     
+   - name: Cambiar permisos al Inslador PatrolAgent AIX en el remote Host "{{ ansible_facts['nodename'] }}"
+     become: yes
+     become_method: sudo
+     file:
+       path: /tmp/Base_{{ ansible_facts['os_family'] }}_Patrol_Without.tar.gz
+       owner: patrol
+       group: grppatro
+       mode: 0754
+     when: ansible_facts['os_family'] == "AIX"
+
+   - name: Cambiar permisos al Inslador PatrolAgent Linux en el remote Host "{{ ansible_facts['nodename'] }}"
+     become: yes
+     become_method: sudo
+     file:
+       path: /tmp/Base_{{ ansible_facts['system'] }}_Patrol_Without.tar.gz
+       owner: patrol
+       group: grppatro
+       mode: 0754
+     when: ansible_facts['system'] == "Linux"
+     
+   - name: Cambiar permisos al Inslador PatrolAgent Solaris en el remote Host "{{ ansible_facts['nodename'] }}"
+     become: yes
+     become_method: sudo
+     file:
+       path: /tmp/Base_{{ ansible_facts['os_family'] }}_Patrol_Without.tar.gz
+       owner: patrol
+       group: grppatro
+       mode: 0754
+     when: ansible_facts['os_family'] == "Solaris"
