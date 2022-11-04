@@ -14,3 +14,8 @@
   become_exe: sudo su -
   shell: echo "¡¡Mensaje de que la accion es verdadera!!"
   when: valpaver.stdout.split()[1] != "V22.1.00i"
+
+- name: Resultado de la alta correcta de PatrolAgent en el remote Host "{{ ansible_facts['nodename'] }}"
+  debug:
+    msg:     
+     - "PatrolAgentVersion..{{ valpaver.stdout.split()[1] }}"
