@@ -3,4 +3,4 @@
   hosts: all
   tasks:
     - include_role:
-        name: role_validar_objetos_patrolagent
+        name: role_validar_patrolagent
