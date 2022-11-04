@@ -1,0 +1,16 @@
+---
+- name: Validar la version actual PatrolAgent en el remote Host "{{ ansible_facts['nodename'] }}"
+  become: yes
+  #become_user: patrol
+  become_method: sudo
+  #become_exe: sudo su -
+  shell: cat /tmp/out_PatrolAgentVersion /tmp/val_PatrolAgentVersion
+  register: valpaver
+
+- name: Iniciar la instalacion de PatrolAgent en el remote Host "{{ ansible_facts['nodename'] }}"
+  become: yes
+  become_user: patrol
+  become_method: su
+  become_exe: sudo su -
+  shell: echo "¡¡Mensaje de que la accion es verdadera!!"
+  when: valpaver.stdout.split()[1] != "V22.1.00i"
