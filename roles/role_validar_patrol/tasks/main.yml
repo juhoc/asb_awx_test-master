@@ -1,13 +1,16 @@
-- name: Validacion de proceso PatrolAgent
-  shell: ps -fea | grep PatrolAgent | grep -v grep >/dev/null && echo 'PatrolAgent .... ACTIVO' || echo 'PatrolAgent .... INACTIVO'
-  register: status_validacion
+---
+- name: Validar la version actual PatrolAgent en el remote Host "{{ ansible_facts['nodename'] }}"
+  become: yes
+  #become_user: patrol
+  become_method: sudo
+  #become_exe: sudo su -
+  shell: cat /tmp/out_PatrolAgentVersion /tmp/val_PatrolAgentVersion
+  register: valpaver
 
-- name: Imprimir status de proceso PatrolAgent
-  debug:
-    msg: "{{ status_validacion.stdout }}"
-  when: status_validacion.stdout == "PatrolAgent .... ACTIVO"
-
-- name: Imprimir status de proceso PatrolAgent
-  debug:
-    msg: "{{ status_validacion.stdout }}"
-  when: status_validacion.stdout == "PatrolAgent .... INACTIVO"
+- name: Iniciar la instalacion de PatrolAgent en el remote Host "{{ ansible_facts['nodename'] }}"
+  become: yes
+  become_user: patrol
+  become_method: su
+  become_exe: sudo su -
+  shell: echo "¡¡Mensaje de que la accion es verdadera!!"
+  when: valpaver.stdout.split()[1] != "V22.1.00i"
