@@ -1,6 +1,7 @@
 ---
 - name: Llamado al role obtener informacion software
   hosts: all
+  gather_facts: False
   tasks:         
     - include_role:
         name: role_obtener_info_paquetes
