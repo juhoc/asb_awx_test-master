@@ -15,7 +15,7 @@
 - name: Mensaje 1
   debug:
     msg:
-     - {{ salida_uno.stderr }}
+     - '{{ salida_uno.stderr }}'
 
 #- name: 
 #  become: yes
