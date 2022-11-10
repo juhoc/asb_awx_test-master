@@ -1,24 +1,22 @@
 ---
-- name: Accion 1
-  become: yes
-  become_method: sudo
-  shell: ssh -V > /tmp/out_openssh 2> /tmp/val_openssh
-  ignore_errors: yes
+-name: Bloque de tareas
+ block:
+ become: yes
+ become_method: sudo
+   - name: Accion 1
+     shell: ssh -V > /tmp/out_openssh 2> /tmp/val_openssh
+     ignore_errors: yes
 
-- name: Accion 2
-  become: yes
-  become_method: sudo
-  shell: ssh -V
-  register: salida_uno
-  ignore_errors: yes
+   - name: Accion 2
+     shell: ssh -V
+     register: salida_uno
+     ignore_errors: yes
 
-- name: Mensaje 1
-  debug:
-    msg:
-     - "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}"
+   - name: Mensaje 1
+     debug:
+       msg:
+        - "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}"
 
-- name: 
-  #become: yes
-  #become_method: sudo
-  shell: echo "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}" >> /tmp/out_openssh.csv
-  delegate_to: asitsmaop2.awx.lab.net
+   - name: 
+     shell: echo "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}" >> /tmp/out_openssh.csv
+     delegate_to: asitsmaop2.awx.lab.net
