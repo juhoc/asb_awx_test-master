@@ -15,7 +15,7 @@
 - name: Mensaje 1
   debug:
     msg:
-     - "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr }}"
+     - "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}"
 
 #- name: 
 #  become: yes
