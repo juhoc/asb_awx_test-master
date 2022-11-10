@@ -1,5 +1,5 @@
 ---
-- name: Bloque de tareas
+- name: Bloque de tareas 1
   block:
    - name: Accion 1
      become: yes
@@ -19,7 +19,9 @@
        msg:
         - "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}"
 
-   - name: Salida final
+- name: Bloque de tareas 2
+  block:
+   - name: Accion 2  
      become: yes
      become_method: sudo   
      shell: echo "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}" >> /tmp/out_openssh.csv
