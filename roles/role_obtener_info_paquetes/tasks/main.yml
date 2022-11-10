@@ -15,10 +15,10 @@
 - name: Mensaje 1
   debug:
     msg:
-     - '{{ salida_uno.stderr }}'
+     - "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr }}"
 
 #- name: 
 #  become: yes
 #  become_method: sudo
-#  shell: echo "{{ output_pkg.stdout }}.{{ ansible_nodename }},{{ ansible_ipaddress }}" >> /bm/out_openssh.tst
+#  shell: echo "{{ output_pkg.stdout }}.{{ ansible_nodename }},{{ ansible_distribution_version }},{{ ansible_ipaddress }}" >> /bm/out_openssh.tst
 #  delegate_to: asitsmaop2.bvm.ibmes.bluecare.ibm.com
