@@ -1,8 +1,8 @@
 ---
--name: Bloque de tareas
- block:
- become: yes
- become_method: sudo
+- name: Bloque de tareas
+  block:
+  become: yes
+  become_method: sudo
    - name: Accion 1
      shell: ssh -V > /tmp/out_openssh 2> /tmp/val_openssh
      ignore_errors: yes
