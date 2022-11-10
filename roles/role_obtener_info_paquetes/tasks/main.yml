@@ -1,1 +1,24 @@
+---
+- name: Accion 1
+  become: yes
+  become_method: sudo
+  shell: ssh -V > /tmp/out_openssh 2> /tmp/val_openssh
+  ignore_errors: yes
 
+- name: Accion 2
+  become: yes
+  become_method: sudo
+  shell: ssh -V
+  register: salida_uno
+  ignore_errors: yes
+
+#- name: Mensaje 1
+#  debug:
+#    msg:
+#     - "{{ vsalida_uno.stdout }}"
+
+#- name: 
+#  become: yes
+#  become_method: sudo
+#  shell: echo "{{ output_pkg.stdout }}.{{ ansible_nodename }},{{ ansible_ipaddress }}" >> /bm/out_openssh.tst
+#  delegate_to: asitsmaop2.bvm.ibmes.bluecare.ibm.com
