@@ -1,23 +1,12 @@
 ---
 - name: Bloque de tareas 1
   block:
-   - name: Accion 1
-     become: yes
-     become_method: sudo
-     shell: ssh -V > /tmp/out_openssh 2> /tmp/val_openssh
-     ignore_errors: yes
-
    - name: Accion 2
      become: yes
      become_method: sudo   
      shell: ssh -V
      register: salida_uno
      ignore_errors: yes
-
-   - name: Mensaje 1
-     debug:
-       msg:
-        - "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}"
 
 - name: Bloque de tareas 2
   block:
