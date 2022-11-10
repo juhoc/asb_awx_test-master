@@ -12,10 +12,10 @@
   register: salida_uno
   ignore_errors: yes
 
-#- name: Mensaje 1
-#  debug:
-#    msg:
-#     - "{{ vsalida_uno.stdout }}"
+- name: Mensaje 1
+  debug:
+    msg:
+     - "{{ vsalida_uno.stderr }}"
 
 #- name: 
 #  become: yes
