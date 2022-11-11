@@ -12,16 +12,16 @@
   shell: echo "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}" >> /tmp/out_openssh.csv
   delegate_to: asitsmaop2.awx.lab.net
 
-- name: Bloque de tareas 2
-  hosts: asitsmaop2.awx.lab.net
-  shell: cat /tmp/out_openssh.csv
-  register: salida_dos
+#- name: Bloque de tareas 2
+  #hosts: asitsmaop2.awx.lab.net
+  #shell: cat /tmp/out_openssh.csv
+  #register: salida_dos
 
-- name: Resultado de la alta correcta de PatrolAgent en el remote Host "{{ ansible_facts['nodename'] }}"
-  debug:
-    msg:
-     - "Salida del archivo:"
-     - "{{ salida_dos.stdout }}"
+#- name: Resultado de la alta correcta de PatrolAgent en el remote Host "{{ ansible_facts['nodename'] }}"
+  #debug:
+    #msg:
+     #- "Salida del archivo:"
+     #- "{{ salida_dos.stdout }}"
         
 #- name: Envio de corro desde los servidores de BAO
 #  block:
