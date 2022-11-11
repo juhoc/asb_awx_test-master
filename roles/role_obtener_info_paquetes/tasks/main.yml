@@ -1,21 +1,16 @@
 ---
 - name: Bloque de tareas 1
-  block:
-   - name: Accion 2
-     become: yes
-     become_method: sudo   
-     shell: ssh -V
-     register: salida_uno
-     ignore_errors: yes
+  become: yes
+  become_method: sudo   
+  shell: ssh -V
+  register: salida_uno
+  ignore_errors: yes
 
-#- name: Bloque de tareas 2
-#  block:
-   - name: Accion 2  
-     become: yes
-     become_method: sudo   
-     shell: echo "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}" >> /tmp/out_openssh.csv
-     delegate_to: asitsmaop2.awx.lab.net
-
+- name: Bloque de tareas 2
+  become: yes
+  become_method: sudo   
+  shell: echo "{{ ansible_hostname }},{{ ansible_os_family }},{{ansible_distribution_version}},{{ salida_uno.stderr.split()[0] }}" >> /tmp/out_openssh.csv
+  delegate_to: asitsmaop2.awx.lab.net
 
 - name: Bloque de tareas 2
   hosts: asitsmaop2.awx.lab.net
