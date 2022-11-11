@@ -17,9 +17,9 @@
      delegate_to: asitsmaop2.awx.lab.net
 
 - name: Bloque de tareas 2
-  host: asitsmaop2.awx.lab.net
   block:
    - name: Accion 2
+     host: asitsmaop2.awx.lab.net
      #become: yes
      #become_method: sudo 
      shell: cat /tmp/out_openssh.csv
