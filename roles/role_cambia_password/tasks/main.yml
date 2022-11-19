@@ -1,10 +1,10 @@
 ---
-- name: change password
+- name: Cambio de password usuario local
 #  gather_facts: False
-  win_user:
-    name: bvmwiat2
-    password: "{{ user_password }}"
-    state: present
+  win_shell: net user {{ user_win_local }} {{ pass_win_local }}
+    #name: bvmwiat2
+    #password: "{{ user_password }}"
+    #state: present
     #register: password_error
     #ignore_errors: True
 
