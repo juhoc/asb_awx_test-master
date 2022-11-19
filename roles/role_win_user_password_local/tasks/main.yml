@@ -1,4 +1,4 @@
 ---
 - name: Cambio de password usuario windows local
-  gather_facts: False
+#  gather_facts: False
   win_shell: net user {{ user_win_local }} {{ pass_win_local }}
