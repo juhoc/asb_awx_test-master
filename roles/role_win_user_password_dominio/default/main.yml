@@ -1,0 +1,3 @@
+# Variables, para cambio de password de usuario Windows local.
+user_win_domain: usuario_dominio
+pass_win_domain: password_dominio
