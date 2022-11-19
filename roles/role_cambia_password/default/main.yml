@@ -1,1 +1,3 @@
-#Archivo main.yml
+# Variables, para cambio de password de usuario Windows local.
+user_win_local: Usuario
+pass_win_local: Password
